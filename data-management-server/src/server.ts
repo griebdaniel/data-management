@@ -47,8 +47,6 @@ app.get('/logOut', (req: express.Request, res: express.Response) => {
   req.session.destroy(() => { res.send(true) });
 });
 
-
-
 app.listen(3000, async () => {
   const client = await MongoClient.connect('mongodb://localhost:27017/');
   db = client.db('test');

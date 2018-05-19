@@ -8,5 +8,5 @@
         ".git",
         "node_modules/**/node_modules"
     ],
-    "exec": "ts-node ./src/data-management.ts"
+    "exec": "ts-node ./src/server.ts"
 }
