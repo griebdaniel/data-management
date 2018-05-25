@@ -1,2 +1,18 @@
-<button mat-button (click)="isLoggedIn()">isLoggedIn</button>
-<button mat-button (click)="logOut()">log out</button>
+<mat-toolbar>
+  <span class="fill-remaining-space"></span>
+  <button mat-button (click)="logOut()">Log Out</button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav class="sidenav" mode="side" opened>
+    <div class="sidenav-content">
+      <button mat-button (click)="show('/home/supplies')">Supplies</button>
+      <button mat-button (click)="show('/home/supplyOrders')">Supply Orders</button>
+      <button mat-button (click)="show('/home/products')">Products</button>
+      <button mat-button (click)="show('/home/productOrders')">Product Orders</button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-content">
+    <router-outlet> </router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

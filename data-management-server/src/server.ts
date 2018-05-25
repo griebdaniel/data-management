@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as session from 'express-session';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
-import { Db, MongoClient } from 'mongodb';
+import { Db, MongoClient, ObjectId } from 'mongodb';
 
 const MongoStore = require('connect-mongo')(session);
 const app: express.Express = express();
@@ -16,7 +16,7 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-app.use(cors({  
+app.use(cors({
   origin: ['http://localhost:4200'],
   credentials: true
 }));
@@ -35,7 +35,6 @@ app.post('/login', (req: express.Request, res: express.Response) => {
 });
 
 app.get('/isLoggedIn', (req: express.Request, res: express.Response) => {
-  console.log(req.session.isLoggedIn);
   if (req.session.isLoggedIn) {
     res.send(true);
   } else {
@@ -45,6 +44,33 @@ app.get('/isLoggedIn', (req: express.Request, res: express.Response) => {
 
 app.get('/logOut', (req: express.Request, res: express.Response) => {
   req.session.destroy(() => { res.send(true) });
+});
+
+app.post('/find', (req: express.Request, res: express.Response) => {
+  db.collection(req.body.collection).find({}).toArray().then(supplies => {
+    res.send(supplies);
+  });
+});
+
+app.post('/update', (req: express.Request, res: express.Response) => {
+  req.body.filter._id = new ObjectId(req.body.filter._id);
+  db.collection(req.body.collection).update(req.body.filter, req.body.update).then(result => {
+    res.send(result);
+  });
+});
+
+app.post('/delete', (req: express.Request, res: express.Response) => {
+  console.log(req.body.filter);
+  req.body.filter._id = new ObjectId(req.body.filter._id);
+  db.collection(req.body.collection).deleteOne(req.body.filter).then(result => {
+    res.send(result);
+  });
+});
+
+app.post('/insert', (req: express.Request, res: express.Response) => {
+  db.collection(req.body.collection).insertOne(req.body.doc).then(result => {
+    res.send(result.ops[0]._id);
+  });
 });
 
 app.listen(3000, async () => {

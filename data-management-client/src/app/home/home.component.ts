@@ -20,7 +20,18 @@ export class HomeComponent implements OnInit {
 
   logOut() {
     this.authService.logOut().subscribe(res => {
-      this.router.navigateByUrl('/login');
+      this.router.navigate(['/login']);
     });
+  }
+
+  show(route) {
+    this.router.navigate([route]);
+  }
+  showSupplies() {
+    this.router.navigate(['/home/supplies']);
+  }
+
+  showSupplyOrders() {
+    this.router.navigate(['home/supplyOrders']);
   }
 }

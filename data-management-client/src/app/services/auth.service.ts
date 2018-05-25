@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { getUrl } from './config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // baseUrl = 'http://localhost:3000/';
-  baseUrl = 'https://datamanagement.ro.lt/api/';
+  baseUrl = getUrl();
 
   constructor(private http: HttpClient) { }
 
