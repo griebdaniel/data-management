@@ -17,24 +17,42 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     const supplies = this.crudService.find('supplies');
-    const acOptions = [];
+    const machines = this.crudService.find('machines');
+    const suppliesAcOptions = [];
+    const machinesAcOptions = [];
 
     supplies.subscribe(supply => {
       supply.forEach(supp => {
-        acOptions.push(supp['name']);
+        suppliesAcOptions.push(supp['name']);
+      });
+    });
+
+    machines.subscribe(machine => {
+      machine.forEach(mach => {
+        machinesAcOptions.push(mach['name']);
       });
     });
 
     const necessaryMetaData = {
       columns: [
-        { name: 'name', type: ColumnTypes.Autocomplete, displayName: 'Name', acOptions: acOptions },
+        { name: 'name', type: ColumnTypes.Autocomplete, displayName: 'Name', acOptions: suppliesAcOptions },
         { name: 'qty', type: ColumnTypes.Number, displayName: 'Quantity' }
       ],
+    };
+
+    const phasesMetaData = {
+      columns: [
+        { name: 'name', type: ColumnTypes.Text, displayName: 'Name' },
+        { name: 'time', type: ColumnTypes.Number, displayName: 'Time' },
+        { name: 'machine', type: ColumnTypes.Autocomplete, displayName: 'Machine', acOptions: machinesAcOptions },
+        { name: 'parent', type: ColumnTypes.Text, displayName: 'Parent' },
+      ]
     };
 
     this.metaData = {
       columns: [
         { name: 'name', type: ColumnTypes.Text, displayName: 'Name' },
+        { name: 'phases', type: ColumnTypes.Table, displayName: 'Phases', metaData: phasesMetaData }
         // { name: 'supplies', type: ColumnTypes.Table, displayName: 'Supplies', metaData: necessaryMetaData }
       ],
       collectionName: 'products'

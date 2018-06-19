@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as session from 'express-session';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import * as lodash from 'lodash';
 import { Db, MongoClient, ObjectId } from 'mongodb';
 
 const MongoStore = require('connect-mongo')(session);
@@ -78,3 +79,5 @@ app.listen(3000, async () => {
   db = client.db('test');
   console.log('Example app listening on port 3000!')
 });
+
+export { db };

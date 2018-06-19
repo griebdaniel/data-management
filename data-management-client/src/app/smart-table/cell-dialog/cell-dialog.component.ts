@@ -17,7 +17,6 @@ export class CellDialogComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    console.log(this.data.metaData);
     if (this.data.metaData !== undefined && this.data.data === undefined) {
       this.data.data = [];
     }

@@ -23,6 +23,8 @@ import { CellDialogComponent } from './smart-table/cell-dialog/cell-dialog.compo
 import { SupplyOrdersComponent } from './supply-orders/supply-orders.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductOrdersComponent } from './product-orders/product-orders.component';
+import { MachinesComponent } from './machines/machines.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ProductOrdersComponent } from './product-orders/product-orders.componen
     CellDialogComponent,
     SupplyOrdersComponent,
     ProductsComponent,
-    ProductOrdersComponent
+    ProductOrdersComponent,
+    MachinesComponent,
+    EmployeesComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,

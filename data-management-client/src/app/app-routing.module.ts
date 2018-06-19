@@ -8,6 +8,8 @@ import { SuppliesComponent } from './supplies/supplies.component';
 import { SupplyOrdersComponent } from './supply-orders/supply-orders.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductOrdersComponent } from './product-orders/product-orders.component';
+import { MachinesComponent } from './machines/machines.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,6 +25,8 @@ const routes: Routes = [
           { path: 'supplyOrders', component: SupplyOrdersComponent },
           { path: 'products', component: ProductsComponent },
           { path: 'productOrders', component: ProductOrdersComponent },
+          { path: 'machines', component: MachinesComponent },
+          { path: 'employees', component: EmployeesComponent },
         ]
       }
     ]
