@@ -1,0 +1,49 @@
+<div mat-dialog-content class="table-container">
+  <ng-container [ngSwitch]="data.metaData.type">
+    <ng-container *ngSwitchCase="ColumnTypes.Text">
+      <mat-form-field class="input">
+        <input matInput [(ngModel)]="data.data">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="ColumnTypes.Number">
+      <mat-form-field>
+        <input matInput type="number" [(ngModel)]="data.data">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="ColumnTypes.Autocomplete">
+      <mat-form-field class="input">
+        <input (keyup)="filterOptions($event.target.value)" matInput [matAutocomplete]="auto" [(ngModel)]="data.data">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="ColumnTypes.Date">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="data.data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="ColumnTypes.Table">
+      <app-smart-table class="smart-table" [data]="asObservable(data.data)" [metaData]="data.metaData.metaData" (change)="changed($event)"></app-smart-table>
+    </ng-container>
+    <ng-container *ngSwitchCase="ColumnTypes.Object">
+      <ng-container [ngSwitch]="data.metaData.mappedType">
+        <ng-container *ngSwitchCase="ColumnTypes.Autocomplete">
+          <mat-form-field class="input">
+            <input (keyup)="filterOptions($event.target.value)" matInput [matAutocomplete]="auto" [ngModel]="data.metaData.map(data.data)" (ngModelChange)="onChange($event)">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+  </ng-container>
+</div>
