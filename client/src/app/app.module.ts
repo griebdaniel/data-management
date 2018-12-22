@@ -27,6 +27,9 @@ import { MachinesComponent } from './machines/machines.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { NecessaryComponent } from './necessary/necessary.component';
 import { RelationalComponent } from './relational/relational.component';
+import { CellComponent } from './smart-table/cell/cell.component';
+import { TableDesignComponent } from './table-design/table-design.component';
+import { SimpleTableComponent } from './simple-table/simple-table.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { RelationalComponent } from './relational/relational.component';
     MachinesComponent,
     EmployeesComponent,
     NecessaryComponent,
-    RelationalComponent
+    RelationalComponent,
+    CellComponent,
+    TableDesignComponent,
+    SimpleTableComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,

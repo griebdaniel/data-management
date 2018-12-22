@@ -46,7 +46,7 @@ export class RelationalComponent implements OnInit {
   }
 
   edit(table: any) {
-    this.crudService.updateTable('products', table).subscribe(res => { console.log(res); });
+    this.crudService.updateTable('products', table).subscribe(res => {});
   }
 
 }

@@ -4,20 +4,18 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav class="sidenav" mode="side" opened>
-    <div class="sidenav-content">
-      <button mat-button (click)="show('/home/supplies')">Supplies</button>
-      <button mat-button (click)="show('/home/supplyOrders')">Supply Orders</button>
-      <button mat-button (click)="show('/home/products')">Products</button>
-      <button mat-button (click)="show('/home/productOrders')">Product Orders</button>
-      <button mat-button (click)="show('/home/machines')">Machines</button>
-      <button mat-button (click)="show('/home/employees')">Employees</button>
-      <button mat-button (click)="show('/home/necessary')">Necessary</button>
-
-      <button mat-button (click)="show('/home/relationalProducts')">RelationalProducts</button>
-    </div>
+  <mat-sidenav mode="side" opened>
+    <button mat-button (click)="show('/home/tableDesign')">Table Design</button>
+    <button mat-button (click)="show('/home/supplies')">Supplies</button>
+    <button mat-button (click)="show('/home/supplyOrders')">Supply Orders</button>
+    <button mat-button (click)="show('/home/products')">Products</button>
+    <button mat-button (click)="show('/home/productOrders')">Product Orders</button>
+    <button mat-button (click)="show('/home/machines')">Machines</button>
+    <button mat-button (click)="show('/home/employees')">Employees</button>
+    <button mat-button (click)="show('/home/necessary')">Necessary</button>
+    <button mat-button (click)="show('/home/relationalProducts')">Relational Products</button>
   </mat-sidenav>
-  <mat-sidenav-content class="main-content">
+  <mat-sidenav-content>
     <router-outlet> </router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

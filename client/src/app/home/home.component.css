@@ -2,17 +2,15 @@
   flex: 1 1 auto;
 }
 
-.sidenav {
-  width: 180px;
-}
-
-.sidenav-content {
+.mat-sidenav {
+  width: 280px;
   display: flex;
   flex-direction: column;
   padding-top: 30px;
 }
 
-.main-content {
-  min-height: 300px;
+.mat-sidenav-content {
+  overflow: visible;
   padding: 20px;
+  min-height: 400px;
 }

@@ -35,7 +35,7 @@
         <td *ngSwitchCase="ColumnTypes.Object" mat-cell (click)="edit(i, columnName)" class="cell">
           {{ metaData.columns[j].map(element[columnName]) }}
         </td>
-        <td *ngSwitchDefault mat-cell (click)="edit(i, columnName)" class="cell"> {{element[columnName]}} </td>
+        <td *ngSwitchDefault mat-cell (click)="edit(i, columnName)" class="cell"> {{ element[columnName] }} </td>
       </ng-container>
     </ng-container>
   </ng-container>

@@ -12,6 +12,7 @@ import { MachinesComponent } from './machines/machines.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { NecessaryComponent } from './necessary/necessary.component';
 import { RelationalComponent } from './relational/relational.component';
+import { TableDesignComponent } from './table-design/table-design.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
           { path: 'employees', component: EmployeesComponent },
           { path: 'necessary', component: NecessaryComponent },
           { path: 'relationalProducts', component: RelationalComponent },
+          { path: 'tableDesign', component: TableDesignComponent },
         ]
       }
     ]

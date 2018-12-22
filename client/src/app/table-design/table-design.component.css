@@ -1,0 +1,49 @@
+.component-container {
+  overflow: auto;
+  height: 800px;
+}
+
+.table-design {
+  overflow: visible;
+  width: 100%;
+}
+
+.mat-cell {
+  height: 48px;
+}
+
+.input-container-container {
+  height: 48px;
+  width: 20px;
+}
+
+.input-container {
+  position: relative;
+  left: -24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  width: 300px;
+  background-color: #f9f9f9;
+}
+
+.edit-input {
+  width: 85%;
+  font-size: initial;
+  color: initial;
+  font-style: initial;
+}
+
+.table-container-container {
+  position: relative;
+  width: 0px;
+  height: inherit;
+}
+
+.table-container {
+  position: relative;
+  width: 500px;
+  left: -24px;
+}
