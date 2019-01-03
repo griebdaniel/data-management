@@ -3,19 +3,23 @@ import { TableMetaData, ColumnTypes, TableColumn } from '../smart-table/table-me
 import { Observable } from 'rxjs';
 import { CrudService } from '../services/crud.service';
 
+import { AutocompleteWithMapperMeta, TableMeta, TableChange } from 'data-table';
+import { SocketService } from '../services/socket-service';
+
 @Component({
   selector: 'app-relational',
   templateUrl: './relational.component.html',
-  styleUrls: []
+  styleUrls: ['./relational.component.scss']
 })
 export class RelationalComponent implements OnInit {
 
-  metaData: TableMetaData;
+  metaData: TableMeta;
   data: Observable<Array<Object>>;
 
-  constructor(private crudService: CrudService) { }
+  constructor(private crudService: CrudService, private socketService: SocketService) { }
 
   ngOnInit() {
+    // this.socketService.init();
     const supplies = this.crudService.findTable('supplies');
     const suppliesAcOptions = [];
 
@@ -23,30 +27,36 @@ export class RelationalComponent implements OnInit {
       supply.forEach(supp => suppliesAcOptions.push(supp));
     });
 
-    const necessaryMetaData = {
-      columns: [
-        {
-          name: 'supply', displayName: 'Supply', type: ColumnTypes.Object, mappedType: ColumnTypes.Autocomplete,
-          map: (supply: any) => supply.name, acOptions: suppliesAcOptions
-        },
-        { name: 'quantity', displayName: 'Quantitiy', type: ColumnTypes.Number, map: (supply: any) => supply.quantity },
-      ],
+    const autocompleteMapperMeta = new AutocompleteWithMapperMeta();
+    autocompleteMapperMeta.options = suppliesAcOptions;
+    autocompleteMapperMeta.map = (element: any) => {
+      if (element) {
+        return element.name;
+      }
+    };
+    const necessaryMeta: TableMeta = {
+      columnsMeta: [
+        { name: 'supply', type: 'AutocompleteWithMapper', typeMeta: autocompleteMapperMeta },
+        { name: 'quantity', type: 'Number' },
+      ]
     };
 
-    this.metaData = {
-      columns: [
-        { name: 'name', type: ColumnTypes.Text, displayName: 'Name' },
-        { name: 'necessary', type: ColumnTypes.Table, displayName: 'Necessary', metaData: necessaryMetaData }
-      ],
-      collectionName: 'products'
+
+    const suppliesMeta: TableMeta = {
+      columnsMeta: [
+        { name: 'name', type: 'Text' },
+        { name: 'necessary', type: 'Table', typeMeta: necessaryMeta },
+      ]
     };
 
     const products = this.crudService.findTable('products');
+    this.metaData = suppliesMeta;
     this.data = products;
+
   }
 
-  edit(table: any) {
-    this.crudService.updateTable('products', table).subscribe(res => {});
+  change(modifications: TableChange) {
+    this.crudService.updateTable('products', modifications).subscribe(res => { });
   }
 
 }

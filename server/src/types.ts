@@ -34,4 +34,10 @@ class Assignment {
   phases: Array<{ name: string, start: number }>;
 }
 
-export { Product, Machine, Employee, ProductOrder, MachineCounter, PhaseCounter, Assignment };
+class Modifications {
+  action: 'insert' | 'delete' | 'update';
+  position: Array<{ row: object, column: string }>;
+  value: any;
+}
+
+export { Product, Machine, Employee, ProductOrder, MachineCounter, PhaseCounter, Assignment, Modifications };

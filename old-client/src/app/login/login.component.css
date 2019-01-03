@@ -1,0 +1,15 @@
+.flex-container {
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form {
+  align-self: center;
+  width: 300px;
+}
+
+.login-button {
+  align-self: center;
+  width: 100px;
+}

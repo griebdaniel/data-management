@@ -1,0 +1,44 @@
+
+@import '~@angular/material/theming';
+
+$config: mat-typography-config();
+
+$toolbarHeight: 56px;
+$sidenavWidth: 220px;
+
+.mat-toolbar {
+  position: relative;
+  height: $toolbarHeight;
+  @include mat-elevation(6);
+  z-index: 2;
+}
+
+.mat-sidenav-container {
+  position: absolute;
+  top: $toolbarHeight;
+  bottom: 0;
+  left: 0;
+  right: 0;
+} 
+
+.mat-sidenav {
+  width: $sidenavWidth;
+}
+
+.sidebar-item {
+  position: relative;
+  width: $sidenavWidth;
+  right: 24px; 
+  text-align: start;
+}
+
+.sidebar-item-text {
+  margin-left: 20px;
+  font-weight: 400;
+}
+
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+

@@ -1,19 +1,24 @@
 import * as express from 'express';
-import {  } from 'express'
+import { } from 'express'
 import * as session from 'express-session';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import { Scheduler } from './scheduler';
-import {} from './types';
+import { } from './types';
 import { ObjectId, Db } from 'mongodb';
 
 import { DataBase } from './database';
 import { Server, createServer } from 'http';
+import * as socketIo from 'socket.io';
 import { connect, find, updateChanges } from './relational';
+import { Subject } from 'rxjs';
+import { SocketConstructorOpts } from 'net';
+
 
 const MongoStore = require('connect-mongo')(session);
 const app: express.Application = express();
 let server: Server;
+let io: SocketIO.Server;
 let db: Db;
 
 app.use(session({
@@ -106,18 +111,18 @@ app.post('/necessary', async (req: express.Request, res: express.Response) => {
       });
     });
   });
-  
+
   res.send(necessary);
 })
 
 
 app.post('/updateTable', async (req: express.Request, res: express.Response) => {
-  console.log(req.body.table);
-  res.send(await updateChanges(req.body.table, req.body.entities))
+  res.send(await updateChanges(req.body.table, req.body.modifications));
 });
 
 app.post('/findTable', async (req: express.Request, res: express.Response) => {
-  res.send(await find(req.body.table))
+  const table = await find(req.body.table);
+  res.send(table);
 });
 
 
@@ -128,17 +133,27 @@ async function start() {
   await connect();
 
   await new Promise((resolve, rejects) => {
-    server = app.listen(3000, async () => {
+    server = createServer(app);
+    io = socketIo(server);
+
+    io.on('connection', (socket: SocketIO.Socket) => {
+      console.log('connected io');
+      setInterval(() => {
+        socket.emit('message', 'SocketIO is cool!');
+      }, 1000);
+    });
+
+    server.listen(3000, () => {
       resolve(true);
     });
-  }); 
+
+  });
 }
 
 function stop() {
   server.close();
 }
 
-start().then(() => {console.log('App listening on port 3000!');});
-
+// start().then(() => { console.log('App listening on port 3000!'); });
 
 export { start, stop }

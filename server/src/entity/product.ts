@@ -7,6 +7,6 @@ export class Product {
     @PrimaryColumn()
     name: string;
 
-    @OneToMany(type => Necessary, necessary => necessary.product, { eager: true, cascade: [ 'insert', 'remove', 'update' ] })
+    @OneToMany(type => Necessary, necessary => necessary.product, { eager: true, cascade: true })
     necessary: Necessary[];
 }

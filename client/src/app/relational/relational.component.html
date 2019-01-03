@@ -1,1 +1,4 @@
-<app-smart-table [metaData]="metaData" [data]="data" (change)="edit($event)"></app-smart-table>
+<!-- <app-smart-table [metaData]="metaData" [data]="data" (change)="edit($event)"></app-smart-table> -->
+<div class="table-container">
+  <lib-extra-table [style.background-color]="'#ffffff'" [data]="data" [tableMeta]="metaData" (changed)="change($event)"></lib-extra-table>
+</div>

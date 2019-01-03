@@ -10,6 +10,7 @@ import {
   MatTableModule, MatDialogModule, MatIconModule,
   MatPaginatorModule, MatSortModule, MatCardModule,
   MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule,
+  MatTreeModule, MatExpansionModule, MatDividerModule, MatAccordion, MatRippleModule
 
 } from '@angular/material';
 
@@ -30,6 +31,7 @@ import { RelationalComponent } from './relational/relational.component';
 import { CellComponent } from './smart-table/cell/cell.component';
 import { TableDesignComponent } from './table-design/table-design.component';
 import { SimpleTableComponent } from './simple-table/simple-table.component';
+import { DataTableModule } from 'data-table';
 
 @NgModule({
   declarations: [
@@ -48,14 +50,15 @@ import { SimpleTableComponent } from './simple-table/simple-table.component';
     RelationalComponent,
     CellComponent,
     TableDesignComponent,
-    SimpleTableComponent
+    SimpleTableComponent,
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, HttpClientModule, AppRoutingModule,
-    FormsModule, MatButtonModule, MatCheckboxModule, MatInputModule,
+    FormsModule, MatButtonModule, MatCheckboxModule, MatInputModule, MatRippleModule,
     MatToolbarModule, MatSidenavModule, MatTableModule, MatDialogModule,
     MatIconModule, MatPaginatorModule, MatSortModule, MatCardModule, MatCheckboxModule,
-    MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule,
+    MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule, DataTableModule, MatTreeModule,
+    MatExpansionModule, MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

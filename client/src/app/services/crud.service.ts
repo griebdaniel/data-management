@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { getUrl } from './config';
+import { TableChange } from 'data-table';
 
 @Injectable({
   providedIn: 'root'
@@ -61,10 +62,18 @@ export class CrudService {
     );
   }
 
-  updateTable(table: string, entities: string): Observable<any> {
-    return this.http.post<any>(
+  updateTable(table: string, modifications: TableChange): Observable<any> {
+
+    return this.http.post<string>(
       this.baseUrl + 'updateTable',
-      { table: table, entities: entities },
+      { table: table, modifications: modifications },
+      { withCredentials: true, responseType: 'text' as 'json' }
+    );
+  }
+
+  notifyOnChange() {
+    return this.http.post<any>(
+      this.baseUrl + 'notifyOnChange',
       { withCredentials: true },
     );
   }

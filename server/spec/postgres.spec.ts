@@ -24,11 +24,11 @@ describe('server', () => {
 		const product = new Product();
 		product.name = 'p1';
 		product.necessary = [];
-		product.necessary.push({ supply: supplies[0], quantity: 0 }, { supply: supplies[1], quantity: 1 });
+		// product.necessary.push({ supply: supplies[0], quantity: 0 }, { supply: supplies[1], quantity: 1 });
 
 		console.log(product.necessary);
 
-		await updateChanges('products', [product]);
+		// await updateChanges('products', [product]);
 
 		const updatedProducts = await find('products');
 		console.log(updatedProducts[0].necessary);
@@ -66,7 +66,7 @@ describe('server', () => {
 		done();
 	});
 
-	fit('upodate OneToMany', async done => {
+	it('upodate OneToMany', async done => {
 		const supplies: any = await find('supplies');
 		let products: any = await find('products');
 		let supply = lodash.find(supplies, { name: 's5' });
@@ -74,11 +74,17 @@ describe('server', () => {
 		products[0].necessary[1].quantity = 4;
 		products[0].necessary[1].supply = supply;
 
-		await updateChanges('products', [products[0]])
+		// await updateChanges('products', [products[0]])
 
 		products = await find('products');
 		console.log(products[0].necessary);
 
+		done();
+	});
+
+	fit('update', async done => {
+
+		// updateChanges();
 		done();
 	});
 

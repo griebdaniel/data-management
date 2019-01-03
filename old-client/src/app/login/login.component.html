@@ -1,0 +1,11 @@
+<div class="flex-container">
+  <mat-form-field class="login-form">
+    <input class="login-form" matInput placeholder="username" [(ngModel)]="username">
+  </mat-form-field>
+
+  <mat-form-field class="login-form">
+    <input class="login-form" matInput placeholder="password" [(ngModel)]="password">
+  </mat-form-field>
+
+  <button color="primary" class="login-button" mat-raised-button (click)="login()">Log In</button>
+</div>

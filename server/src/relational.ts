@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { createConnection, Connection } from 'typeorm';
 import lodash = require('lodash');
+import { Modifications } from './types';
 
 
 let connection: Connection
@@ -15,12 +16,12 @@ export async function disconnect() {
 
 
 
-export async function find(table: string, relations?: string[]) : Promise<any> {
+export async function find(table: string, relations?: string[]): Promise<any> {
   const repository = await connection.getRepository(table);
-  return repository.find({ relations: relations });
+  return repository.find();
 }
 
-export async function updateChanges(table: string, newEntities: any) {
+export async function updateChanges2(table: string, newEntities: any) {
   const repository = await connection.getRepository(table);
   const currentEntities = await repository.find();
   const primaryKey: string = lodash.find(repository.metadata.ownColumns, { isPrimary: true }).propertyName;
@@ -28,6 +29,63 @@ export async function updateChanges(table: string, newEntities: any) {
 
   // await repository.remove(entitiesToRemove);
   await repository.save(newEntities);
+}
+
+export async function updateChanges3(table: string, modifications: Modifications) {
+  const repository = await connection.getRepository(table);
+  const currentEntities = await repository.find();
+
+  lodash.reduce(modifications.position, (result, value) => {
+    result.push(value)
+    return result;
+  }, [])
+
+  let row: any;
+  modifications.position.forEach(modification => {
+    lodash.find(currentEntities)
+    const value = modification.row[modification.column];
+    if (lodash.isArray(value)) {
+      row = value;
+    }
+
+    row = lodash.find(currentEntities, modification.row);
+
+    if (modification.column) {
+      row = row[modification.column];
+    }
+  });
+
+  switch (modifications.action) {
+    case 'update':
+
+      break;
+  }
+
+
+}
+
+
+export async function updateChanges(table: string, modifications: Modifications) {
+  const repository = await connection.getRepository(table);
+  const currentEntities = await repository.find();
+
+  currentEntities[2]['name'] = 'p9';
+
+  await repository.save(currentEntities);
+
+  // const path = lodash.reduce(modifications.position, (result, value) => {
+  //   result.push(value.column);
+  //   return result;
+  // } , []);
+
+  // console.log(path);
+
+  // lodash.set(modifications.position[0].row, path, modifications.value);
+
+  // console.log(modifications.position[0].row);
+
+  // const res = await repository.save([modifications.position[0].row]);
+
 }
 
 

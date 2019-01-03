@@ -1,19 +1,37 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
   <span class="fill-remaining-space"></span>
   <button mat-button (click)="logOut()">Log Out</button>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened>
-    <button mat-button (click)="show('/home/tableDesign')">Table Design</button>
-    <button mat-button (click)="show('/home/supplies')">Supplies</button>
-    <button mat-button (click)="show('/home/supplyOrders')">Supply Orders</button>
-    <button mat-button (click)="show('/home/products')">Products</button>
-    <button mat-button (click)="show('/home/productOrders')">Product Orders</button>
-    <button mat-button (click)="show('/home/machines')">Machines</button>
-    <button mat-button (click)="show('/home/employees')">Employees</button>
-    <button mat-button (click)="show('/home/necessary')">Necessary</button>
-    <button mat-button (click)="show('/home/relationalProducts')">Relational Products</button>
+    <mat-expansion-panel [style.margin-top]="'20px'" [class.mat-elevation-z0]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Edit
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <button mat-button class="sidebar-item">
+        <span class="sidebar-item-text"> Supplies </span>
+      </button>
+      <button mat-button class="sidebar-item" (click)="show('/home/relationalProducts')">
+        <span class="sidebar-item-text"> Products </span>
+      </button>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [class.mat-elevation-z0]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Orders
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <button mat-button class="sidebar-item">
+        <span class="sidebar-item-text"> Product Orders </span>
+      </button>
+      <button mat-button class="sidebar-item">
+        <span class="sidebar-item-text"> Supply Orders </span>
+      </button>
+    </mat-expansion-panel>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet> </router-outlet>
