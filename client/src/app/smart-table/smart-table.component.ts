@@ -19,8 +19,8 @@ export class SmartTableComponent implements OnInit {
   @Input() data: Observable<Array<Object>>;
   @Output() change = new EventEmitter<any>();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   ColumnTypes = ColumnTypes;
   dataColumns: string[] = [];

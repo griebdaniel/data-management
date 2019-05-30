@@ -20,10 +20,10 @@
     ],
     "paths": {
       "data-table": [
-        "/home/daniel/apps/table/dist/data-table"
+        "/home/daniel/table/dist/data-table"
       ],
       "data-table/*": [
-        "/home/daniel/apps/table/dist/data-table/*"
+        "/home/daniel/table/dist/data-table/*"
       ],
       "@angular/*": [
         "node_modules/@angular/*"
