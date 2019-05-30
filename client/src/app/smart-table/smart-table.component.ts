@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { TableMetaData, TableColumn, ColumnTypes } from './table-meta-data';
 import { Observable, Subject, of, ObjectUnsubscribedError } from 'rxjs';
-import { MatTableDataSource, MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { CellDialogComponent } from './cell-dialog/cell-dialog.component';
 import * as lodash from 'lodash';
 import { CrudService } from '../services/crud.service';

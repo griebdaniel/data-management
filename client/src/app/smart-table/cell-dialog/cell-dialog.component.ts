@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Optional } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ColumnTypes } from '../table-meta-data';
 import { of, Observable, Subject } from 'rxjs';
 import * as lodash from 'lodash';
