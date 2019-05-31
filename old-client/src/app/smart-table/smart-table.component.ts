@@ -16,8 +16,8 @@ export class SmartTableComponent implements OnInit {
   @Input() data: Observable<Array<Object>>;
   @Output() change = new EventEmitter<any>();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ColumnTypes = ColumnTypes;
   dataColumns: string[] = [];
@@ -43,9 +43,9 @@ export class SmartTableComponent implements OnInit {
           dataToFilter += data[columnName];
         }
       });
-
       return dataToFilter.indexOf(filter) !== -1;
     };
+
     this.dataSource.paginator = this.paginator;
 
     this.metaData.columns.forEach(column => {
