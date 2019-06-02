@@ -5,8 +5,8 @@ const localServerUrl = 'http://localhost/api/';
 const serverUrl2 = 'http://35.243.194.240/api/';
 
 function getUrl() {
-  // return serverUrl;
-  return localUrl;
+  return serverUrl;
+  // return localUrl;
   // return localServerUrl;
   // return serverUrl;
 }
