@@ -14,6 +14,8 @@ import { connect, find, updateChanges } from './relational';
 import { Subject } from 'rxjs';
 import { SocketConstructorOpts } from 'net';
 
+import * as Lodash from 'lodash';
+
 
 const MongoStore = require('connect-mongo')(session);
 const app: express.Application = express();
@@ -87,17 +89,15 @@ app.post('/insert', (req: express.Request, res: express.Response) => {
   });
 });
 
-
-
-
 app.post('/necessary', async (req: express.Request, res: express.Response) => {
   const necessary = await db.collection('productOrders').aggregate([
     { $unwind: '$products' }, { $lookup: { from: 'products', localField: 'products.name', foreignField: 'name', as: 'necessary' } },
     { $unwind: '$necessary' }, { $unwind: '$necessary.necessary' },
-    { $project: { name: 1, total: { $multiply: ['$products.qty', '$necessary.necessary.qty'] }, supply: '$necessary.necessary.name' } },
+    { $project: { name: 1, total: { $multiply: ['$products.count', '$necessary.necessary.qty'] }, supply: '$necessary.necessary.name' } },
     { $group: { _id: { name: '$name', supply: '$supply' }, total: { $sum: '$total' } } },
     { $group: { _id: '$_id.name', supplies: { $push: { name: '$_id.supply', qty: '$total' } } } },
-    { $project: { ordername: '$_id', required: '$supplies' } }]).toArray();
+    { $project: { ordername: '$_id', required: '$supplies' } },
+  ]).toArray();
 
   const inventory = await db.collection('supplies').find().toArray();
 
@@ -112,9 +112,23 @@ app.post('/necessary', async (req: express.Request, res: express.Response) => {
     });
   });
 
-  res.send(necessary);
-})
+  const supplyOrders = await db.collection('supplyOrders').aggregate([
+    { $unwind: '$supplies' }, { $group: { _id: '$supplies.name', qty: { $sum: '$supplies.qty' } } }, { $project: { supplyName: '$_id', qty: '$qty' } }
+  ]).toArray();
 
+  for (const n of necessary) {
+    for (const supplyOrder of supplyOrders) {
+      const supply = Lodash.find(n.required, { name: supplyOrder.supplyName }) as any;
+      if (supply) {
+        supply.qty -= supplyOrder.qty;
+      }
+    }
+  }
+
+  necessary.forEach(n => Lodash.remove(n.required, (supply: any) => supply.qty <= 0));
+
+  res.send(necessary);
+});
 
 app.post('/updateTable', async (req: express.Request, res: express.Response) => {
   res.send(await updateChanges(req.body.table, req.body.modifications));
@@ -125,12 +139,11 @@ app.post('/findTable', async (req: express.Request, res: express.Response) => {
   res.send(table);
 });
 
-
 async function start() {
   await DataBase.connect();
   db = DataBase.getDB();
 
-  await connect();
+  // await connect();
 
   await new Promise((resolve, rejects) => {
     server = createServer(app);
@@ -154,6 +167,7 @@ function stop() {
   server.close();
 }
 
-// start().then(() => { console.log('App listening on port 3000!'); });
+
+start().then(() => { console.log('App listening on port 3000!'); });
 
 export { start, stop }

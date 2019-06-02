@@ -30,9 +30,7 @@ export class SmartTableComponent implements OnInit {
   headerSelect: boolean;
   select: Boolean[] = [];
 
-  constructor(private dialog: MatDialog, private crudService: CrudService) {
-
-  }
+  constructor(private dialog: MatDialog, private crudService: CrudService) { }
 
   ngOnInit() {
     this.dataSource.filterPredicate = (data, filter) => {
